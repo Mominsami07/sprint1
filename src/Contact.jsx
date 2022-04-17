@@ -3,10 +3,10 @@ import serverFunctions from "./apiFunctions/callServer"
 const Contact = () => {
 
   const [data, setData] = useState({
-    fullname: " ",
-    phone: " ",
-    email: " ",
-    msg: " ",
+    fullname: "",
+    phone: "",
+    email: "",
+    msg: "",
   });
 
   const inputEvent = (event) => {
