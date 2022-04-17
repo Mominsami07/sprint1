@@ -1,8 +1,23 @@
 import React from "react";
 import Card from "./Card";
 import CardData from "./CardData";
+import serverFunctions from "./apiFunctions/callServer"
 
 const Service = () => {
+
+  const [data , setData] = React.useState([]);
+  React.useEffect(() => {
+  const fetchData = async () => {
+    const response = await serverFunctions.getData();
+    if(response === "error" || response === "NoData"){
+      return setData(CardData);
+    }
+    setData(response);
+  }
+  fetchData();
+}, []);
+
+
   return (
     <>
       <div className="my-5">
@@ -13,7 +28,7 @@ const Service = () => {
         <div className="row">
           <div className="col-10 mx-auto">
             <div className="row gy-4">
-              {CardData.map((value, index) => {
+              {data.map((value, index) => {
                 return <Card key={index} imgsrc={value.imgsrc} title={value.title} text={value.text} />;
               })}
             </div>

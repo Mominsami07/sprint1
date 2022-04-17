@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import serverFunctions from "./apiFunctions/callServer"
 const Contact = () => {
 
   const [data, setData] = useState({
@@ -11,7 +11,6 @@ const Contact = () => {
 
   const inputEvent = (event) => {
       const {name, value} = event.target;
-
       setData((prevVal) => {
         return {
             ...prevVal,
@@ -20,9 +19,14 @@ const Contact = () => {
       });
   };
 
-  const formSubmit = (e) => {
+  const formSubmit = async (e) => {
     e.preventDefault();
+    const response = await serverFunctions.sendContactMessage(data);
+    if(response === "error"){
+      alert("Somthing went wrong try again later");
+    }else{
     alert("Your form has been submitted");
+    }
   }
 
   return (
